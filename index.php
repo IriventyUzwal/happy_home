@@ -5,13 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Homes | Book Your Stay</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <nav class="navbar">
     <h2 class="logo">Happy Homes</h2>
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
+    </div>
     <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -19,9 +24,11 @@
         <?php if (isset($_SESSION['user_id'])): ?>
             <li><a href="my-bookings.php">My Bookings</a></li>
             <li><a href="logout.php" class="btn-login">Logout</a></li>
-        <?php else: ?>
+        <?php
+else: ?>
             <li><a href="login.php" class="btn-login">Login</a></li>
-        <?php endif; ?>
+        <?php
+endif; ?>
     </ul>
 </nav>
 
@@ -50,50 +57,62 @@
     <div class="room-container">
         <!-- DELUXE ROOM -->
         <div class="room-card">
-            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a" alt="Deluxe">
+            <img src="images/deluxe.png" alt="Deluxe">
             <h3>Deluxe Room</h3>
             <p>₹2000 / night</p>
+            <p class="vacancy-display" data-room-id="deluxe-room" style="font-size: 14px; font-weight: 600; margin: 5px 0; min-height: 21px;"></p>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <button class="book-btn" data-room="Deluxe Room">Book Now</button>
-            <?php else: ?>
+            <?php
+else: ?>
                 <a href="login.php"><button class="book-btn">Login to Book</button></a>
-            <?php endif; ?>
+            <?php
+endif; ?>
         </div>
 
         <!-- STANDARD ROOM -->
         <div class="room-card">
-            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427" alt="Standard">
+            <img src="images/standard.png" alt="Standard">
             <h3>Standard Room</h3>
             <p>₹1200 / night</p>
+            <p class="vacancy-display" data-room-id="standard-room" style="font-size: 14px; font-weight: 600; margin: 5px 0; min-height: 21px;"></p>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <button class="book-btn" data-room="Standard Room">Book Now</button>
-            <?php else: ?>
+            <?php
+else: ?>
                 <a href="login.php"><button class="book-btn">Login to Book</button></a>
-            <?php endif; ?>
+            <?php
+endif; ?>
         </div>
 
         <!-- EXECUTIVE SUITE -->
         <div class="room-card">
-            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" alt="Suite">
+            <img src="images/suite.png" alt="Suite">
             <h3>Executive Suite</h3>
             <p>₹3500 / night</p>
+            <p class="vacancy-display" data-room-id="executive-suite" style="font-size: 14px; font-weight: 600; margin: 5px 0; min-height: 21px;"></p>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <button class="book-btn" data-room="Executive Suite">Book Now</button>
-            <?php else: ?>
+            <?php
+else: ?>
                 <a href="login.php"><button class="book-btn">Login to Book</button></a>
-            <?php endif; ?>
+            <?php
+endif; ?>
         </div>
 
         <!-- FAMILY ROOM -->
         <div class="room-card">
-            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32" alt="Family">
+            <img src="images/family.png" alt="Family">
             <h3>Family Room</h3>
             <p>₹2500 / night</p>
+            <p class="vacancy-display" data-room-id="family-room" style="font-size: 14px; font-weight: 600; margin: 5px 0; min-height: 21px;"></p>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <button class="book-btn" data-room="Family Room">Book Now</button>
-            <?php else: ?>
+            <?php
+else: ?>
                 <a href="login.php"><button class="book-btn">Login to Book</button></a>
-            <?php endif; ?>
+            <?php
+endif; ?>
         </div>
     </div>
 </section>
@@ -119,10 +138,10 @@
         </div>
     </div>
     <div class="footer-bottom">
-        &copy; 2026 Happy Homes | Designed with ❤️
+        &copy; 2026 Happy Homes | Designed with ❤️ | <a href="admin_login.php" style="color: #cbd5e1; text-decoration: none; margin-left:10px;">Admin Portal</a>
     </div>
 </footer>
 
-<script src="js/script.js"></script>
+<script src="js/script.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
