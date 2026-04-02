@@ -163,17 +163,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
-    // 7. LOADING ANIMATIONS
+    // 8. ROOM SEARCH & PRICE FILTERING
     // ========================================
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
+    const roomSearch = document.getElementById('roomSearch');
+    const priceFilter = document.getElementById('priceFilter');
+    const priceVal = document.getElementById('priceVal');
+    const rooms = document.querySelectorAll('.room-card');
+
+    if (roomSearch && priceFilter) {
+        const filterRooms = () => {
+            const searchText = roomSearch.value.toLowerCase();
+            const maxPrice = parseInt(priceFilter.value);
+            priceVal.textContent = maxPrice;
+
+            rooms.forEach(room => {
+                const title = room.querySelector('h3').textContent.toLowerCase();
+                const priceText = room.querySelector('p:nth-of-type(2)').textContent;
+                const price = parseInt(priceText.replace(/[^\d]/g, ''));
+
+                const matchesSearch = title.includes(searchText);
+                const matchesPrice = price <= maxPrice;
+
+                if (matchesSearch && matchesPrice) {
+                    room.style.display = 'block';
+                    room.style.opacity = '1';
+                    room.style.transform = 'scale(1)';
+                } else {
+                    room.style.display = 'none';
+                    room.style.opacity = '0';
+                    room.style.transform = 'scale(0.8)';
+                }
+            });
+        };
+
+        roomSearch.addEventListener('input', filterRooms);
+        priceFilter.addEventListener('input', filterRooms);
+    }
 
     console.log('All features loaded successfully');
 });
+
+// Global Slider Function
+function moveSlider(roomId, direction) {
+    const totalSlides = parseInt(document.getElementById('totalSlides-' + roomId).value);
+    let currentSlide = parseInt(document.getElementById('currentSlide-' + roomId).value);
+    
+    currentSlide += direction;
+    
+    if (currentSlide >= totalSlides) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    
+    document.getElementById('currentSlide-' + roomId).value = currentSlide;
+    
+    const slider = document.querySelector(`#room-card-${roomId} .room-slides`);
+    const translateX = -(currentSlide * 100);
+    slider.style.transform = `translateX(${translateX}%)`;
+    
+    // Update Dots
+    const dots = document.querySelectorAll(`#room-card-${roomId} .dot`);
+    dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+            dot.style.width = "25px";
+            dot.style.opacity = "0.9";
+        } else {
+            dot.style.width = "8px";
+            dot.style.opacity = "0.4";
+        }
+    });
+}

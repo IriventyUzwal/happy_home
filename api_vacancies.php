@@ -10,9 +10,11 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
         $rtype = $row['room_type'];
         if (!isset($db_rooms[$rtype])) {
-            $db_rooms[$rtype] = ['total_inventory' => 0];
+            $db_rooms[$rtype] = ['total_inventory' => 0, 'is_available' => 1];
         }
         $db_rooms[$rtype]['total_inventory'] += $row['total_rooms'];
+        // Keep it unavailable if any record says so (simplified)
+        if ($row['is_available'] == 0) $db_rooms[$rtype]['is_available'] = 0;
     }
 }
 
@@ -36,7 +38,7 @@ foreach ($db_rooms as $rtype => $rdata) {
 
     $response[$id] = [
         'available' => $available,
-        'sold_out' => ($available <= 0)
+        'sold_out' => ($available <= 0 || $rdata['is_available'] == 0)
     ];
 }
 

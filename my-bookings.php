@@ -84,9 +84,24 @@ $result = $stmt->get_result();
                                     <i class="fas fa-users" style="margin-right: 5px;"></i> <?= $item['guests'] ?> Guests
                                 </span>
                             </div>
-                            <a href="cancel-booking.php?id=<?= $item['id'] ?>" onclick="return confirm('Are you sure you want to cancel this booking?')">
-                                <button class="btn-cancel"><i class="fas fa-times-circle"></i> Cancel Booking</button>
-                            </a>
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <a href="print-receipt.php?id=<?= $item['id'] ?>" target="_blank">
+                                    <button class="btn-cancel" style="border-color: var(--primary); color: var(--primary); background: rgba(14, 165, 233, 0.1);"><i class="fas fa-print"></i> Receipt</button>
+                                </a>
+                                
+                                <?php if ($item['status'] !== 'completed'): ?>
+                                    <a href="cancel-booking.php?id=<?= $item['id'] ?>" onclick="return confirm('Are you sure you want to cancel this booking?')">
+                                        <button class="btn-cancel"><i class="fas fa-times-circle"></i> Cancel Booking</button>
+                                    </a>
+                                <?php else: ?>
+                                    <span style="color: var(--primary-light); font-weight: 600; font-size: 14px; margin-right: 5px;">
+                                        <i class="fas fa-check-circle"></i> Stay Completed
+                                    </span>
+                                    <a href="rate_stay.php?id=<?= $item['id'] ?>&room=<?= urlencode($item['room_name']) ?>">
+                                        <button class="btn-cancel" style="border-color: #fbbf24; color: #fbbf24; background: rgba(251, 191, 36, 0.1);"><i class="fas fa-star"></i> Rate Stay</button>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
